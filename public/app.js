@@ -7,6 +7,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const urlParams = new URLSearchParams(window.location.search);
   const shop = urlParams.get('shop') || 'default';
 
+  async function getAuthHeaders(extra = {}) {
+    const headers = { ...extra };
+    try {
+      if (window.shopify && typeof window.shopify.idToken === 'function') {
+        const token = await window.shopify.idToken();
+        if (token) {
+          headers['Authorization'] = 'Bearer ' + token;
+        }
+      }
+    } catch (e) {
+      // Fallback outside embedded admin
+    }
+    return headers;
+  }
+
+
   // Elements
   const currencySymbol = document.getElementById('currency-symbol');
   const goalAmount = document.getElementById('goal-amount');
@@ -88,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Load existing settings
-  fetch(`/api/settings?shop=${encodeURIComponent(shop)}`)
+  getAuthHeaders().then(headers => fetch(`/api/settings?shop=${encodeURIComponent(shop)}`, { headers }))
     .then(r => r.json())
     .then(s => {
       if (!s) return;
@@ -139,11 +155,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
 
-    fetch('/api/settings', {
+    getAuthHeaders({ 'Content-Type': 'application/json' }).then(headers => fetch('/api/settings', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify(payload)
-    })
+    }))
       .then(r => r.json())
       .then(data => {
         saveBtn.disabled = false;
@@ -162,11 +178,11 @@ document.addEventListener('DOMContentLoaded', () => {
     upgradeBtn.disabled = true;
     upgradeBtn.textContent = 'Processing Upgrade...';
 
-    fetch('/api/billing/upgrade', {
+    getAuthHeaders({ 'Content-Type': 'application/json' }).then(headers => fetch('/api/billing/upgrade', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify({ shop: shop })
-    })
+    }))
       .then(r => r.json())
       .then(data => {
         if (data.confirmationUrl) {

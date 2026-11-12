@@ -429,8 +429,12 @@ const server = http.createServer(async (req, res) => {
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('File not found');
       } else {
+        let output = content;
+        if (filePath.endsWith('index.html')) {
+          output = content.toString('utf8').replace('__SHOPIFY_API_KEY__', SHOPIFY_API_KEY);
+        }
         res.writeHead(200, { 'Content-Type': contentType });
-        res.end(content);
+        res.end(output);
       }
     });
   });
