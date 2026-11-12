@@ -1,21 +1,23 @@
-# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
-
-client_id = "YOUR_SHOPIFY_API_KEY"
+client_id = "FQy4HArVdBbZ87AHrbfdhSXRgyE5NUbrh6GaL8enMUeh"
 name = "ShipBoost: Free Shipping Bar"
 handle = "shipboost-free-shipping-bar"
-application_url = "https://your-deployed-app.onrender.com"
+application_url = "https://shipboost-app.onrender.com"
 embedded = true
 
 [access_scopes]
-scopes = "write_themes,read_themes,read_products,read_cart"
+scopes = "read_product_feeds,read_themes,write_themes"
 
 [auth]
 redirect_urls = [
-  "https://your-deployed-app.onrender.com/auth/callback"
+  "https://shipboost-app.onrender.com/auth/callback"
 ]
 
 [webhooks]
-api_version = "2024-04"
+api_version = "2024-10"
+
+  [[webhooks.subscriptions]]
+  compliance_topics = [ "customers/data_request", "customers/redact", "shop/redact" ]
+  uri = "https://shipboost-app.onrender.com/webhooks/gdpr"
 
 [pos]
 embedded = false

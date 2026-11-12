@@ -169,10 +169,20 @@ document.addEventListener('DOMContentLoaded', () => {
     })
       .then(r => r.json())
       .then(data => {
-        planBadge.textContent = 'Pro Plan ($9.99/mo)';
-        planBadge.className = 'badge badge-pro';
-        upgradeBtn.textContent = '✓ Pro Plan Active';
-        showToast('Upgraded to Pro Plan ($9.99/month)!');
+        if (data.confirmationUrl) {
+          window.top.location.href = data.confirmationUrl;
+          return;
+        }
+        if (data.success) {
+          planBadge.textContent = 'Pro Plan ($9.99/mo)';
+          planBadge.className = 'badge badge-pro';
+          upgradeBtn.textContent = '✓ Pro Plan Active';
+          showToast(data.message || 'Upgraded to Pro Plan ($9.99/month)!');
+        } else {
+          upgradeBtn.disabled = false;
+          upgradeBtn.textContent = 'Upgrade Store to Pro';
+          showToast(data.error || 'Could not start upgrade.');
+        }
       })
       .catch(err => {
         upgradeBtn.disabled = false;
