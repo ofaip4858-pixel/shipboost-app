@@ -1,0 +1,102 @@
+/* ShipBoost Free Shipping Bar Styling */
+#shipboost-bar-wrapper {
+  position: relative;
+  width: 100%;
+  z-index: 999999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  box-sizing: border-box;
+}
+
+#shipboost-bar-wrapper * {
+  box-sizing: border-box;
+}
+
+#shipboost-bar-wrapper.shipboost-pos-top {
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+#shipboost-bar-wrapper.shipboost-pos-bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#shipboost-bar-wrapper.shipboost-hidden {
+  display: none !important;
+}
+
+#shipboost-bar {
+  padding: 10px 16px 8px 16px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+}
+
+.shipboost-content-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 8px;
+}
+
+.shipboost-icon {
+  font-size: 16px;
+}
+
+.shipboost-message {
+  letter-spacing: 0.2px;
+}
+
+.shipboost-close-btn {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0.7;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.shipboost-close-btn:hover {
+  opacity: 1;
+}
+
+.shipboost-progress-container {
+  max-width: 500px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  margin: 6px auto 2px auto;
+  overflow: hidden;
+}
+
+.shipboost-progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 640px) {
+  #shipboost-bar {
+    font-size: 12px;
+    padding: 8px 12px 6px 12px;
+  }
+  .shipboost-progress-container {
+    max-width: 90%;
+    height: 5px;
+  }
+}

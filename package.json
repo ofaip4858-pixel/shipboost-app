@@ -1,0 +1,23 @@
+{
+  "name": "shipboost-shopify-app",
+  "version": "1.0.0",
+  "description": "Smart Free Shipping Bar & Cart Progress Upsell for Shopify Stores",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "shopify",
+    "shopify-app",
+    "shipping-bar",
+    "free-shipping",
+    "ecommerce",
+    "upsell"
+  ],
+  "author": "ShipBoost",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ShipBoost - Smart Free Shipping Bar</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Bar -->
+    <header class="app-header">
+      <div class="header-left">
+        <div class="logo-badge">🚚</div>
+        <div>
+          <h1 class="app-title">ShipBoost</h1>
+          <p class="app-subtitle">Smart Dynamic Free Shipping Bar & Cart Upsell</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <span id="plan-badge" class="badge badge-free">Free Plan</span>
+        <button id="save-btn" class="btn btn-primary">Save Changes</button>
+      </div>
+    </header>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast hidden">Settings saved successfully!</div>
+
+    <!-- Live Preview Card -->
+    <section class="card preview-card">
+      <div class="card-header">
+        <h2 class="card-title">Live Storefront Preview</h2>
+        <div class="preview-actions">
+          <label>Test Cart Total:</label>
+          <input type="range" id="preview-cart-slider" min="0" max="100" value="20" step="5">
+          <span id="preview-cart-label" class="bold-value">$20.00</span>
+        </div>
+      </div>
+      <div class="preview-stage">
+        <div id="preview-bar" class="preview-bar">
+          <div class="preview-bar-content">
+            <span id="preview-icon">🚚</span>
+            <span id="preview-text">Add $30.00 more to unlock FREE SHIPPING!</span>
+          </div>
+          <div class="preview-progress-track">
+            <div id="preview-progress-fill" class="preview-progress-fill"></div>
+          </div>
+        </div>
+      </div>
+      <p class="preview-hint">Drag the slider above to see how the bar and progress react as shoppers add items to their cart!</p>
+    </section>
+
+    <!-- Main Settings Form Grid -->
+    <div class="grid-2-col">
+      <!-- Left Column: Goal & Messages -->
+      <div class="column">
+        <section class="card">
+          <h2 class="card-title">Goal & Messages</h2>
+          
+          <div class="form-group row">
+            <div class="col-half">
+              <label for="currency-symbol">Currency Symbol</label>
+              <input type="text" id="currency-symbol" class="form-control" value="$" maxlength="5">
+            </div>
+            <div class="col-half">
+              <label for="goal-amount">Free Shipping Goal</label>
+              <input type="number" id="goal-amount" class="form-control" value="50.00" step="1" min="1">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="initial-message">Initial Message (Empty Cart)</label>
+            <input type="text" id="initial-message" class="form-control" value="Free Shipping on orders over {goal}! 🚚">
+            <small class="form-help">Use <code>{goal}</code> to insert your goal amount.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="progress-message">Progress Message (Cart has items)</label>
+            <input type="text" id="progress-message" class="form-control" value="Add {remaining} more to unlock FREE SHIPPING! 📦">
+            <small class="form-help">Use <code>{remaining}</code> to show how much more the customer needs to spend.</small>
+          </div>
+
+          <div class="form-group">
+            <label for="success-message">Goal Achieved Message</label>
+            <input type="text" id="success-message" class="form-control" value="🎉 Congratulations! You unlocked FREE SHIPPING!">
+          </div>
+        </section>
+
+        <!-- Monetization / Pro Card -->
+        <section class="card pro-card">
+          <div class="pro-header">
+            <div>
+              <h2 class="card-title text-pro">🚀 Upgrade to ShipBoost Pro</h2>
+              <p class="pro-description">Unlock geo-targeting by country, custom fonts, confetti animations, and priority support.</p>
+            </div>
+            <div class="pro-price">
+              <span class="price-value">$9.99</span>
+              <span class="price-cycle">/month</span>
+            </div>
+          </div>
+          <ul class="pro-features">
+            <li>✓ Unlimited impressions on your store</li>
+            <li>✓ Auto currency conversion by country</li>
+            <li>✓ Confetti celebration animation upon unlocking</li>
+            <li>✓ Detailed analytics (Average Order Value lift)</li>
+          </ul>
+          <button id="upgrade-btn" class="btn btn-pro">Upgrade Store to Pro</button>
+        </section>
+      </div>
+
+      <!-- Right Column: Design & Display -->
+      <div class="column">
+        <section class="card">
+          <h2 class="card-title">Design & Colors</h2>
+
+          <div class="form-group">
+            <label for="bar-position">Bar Position</label>
+            <select id="bar-position" class="form-control">
+              <option value="top">Top of Page (Sticky)</option>
+              <option value="bottom">Bottom of Page (Fixed)</option>
+            </select>
+          </div>
+
+          <div class="color-picker-row">
+            <div class="color-field">
+              <label for="bg-color">Background</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="bg-color" value="#111827">
+                <input type="text" id="bg-color-hex" class="hex-text" value="#111827">
+              </div>
+            </div>
+
+            <div class="color-field">
+              <label for="text-color">Text Color</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="text-color" value="#ffffff">
+                <input type="text" id="text-color-hex" class="hex-text" value="#ffffff">
+              </div>
+            </div>
+
+            <div class="color-field">
+              <label for="progress-color">Progress Fill</label>
+              <div class="color-input-wrapper">
+                <input type="color" id="progress-color" value="#10b981">
+                <input type="text" id="progress-color-hex" class="hex-text" value="#10b981">
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Activation Card -->
+        <section class="card">
+          <h2 class="card-title">Activation Status</h2>
+          <div class="toggle-row">
+            <div>
+              <strong>Enable Shipping Bar</strong>
+              <p class="form-help">Show or hide the shipping bar across your online store.</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="is-active" checked>
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </section>
+
+        <!-- Quick 1-Click Installation Guide -->
+        <section class="card help-card">
+          <h2 class="card-title">Shopify 1-Click Theme Setup</h2>
+          <ol class="setup-steps">
+            <li>Go to your <strong>Shopify Admin &gt; Online Store &gt; Themes</strong>.</li>
+            <li>Click <strong>Customize</strong> on your active theme.</li>
+            <li>In the left sidebar, click <strong>App Embeds</strong>.</li>
+            <li>Toggle <strong>Smart Shipping Bar</strong> to ON and click <strong>Save</strong>!</li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

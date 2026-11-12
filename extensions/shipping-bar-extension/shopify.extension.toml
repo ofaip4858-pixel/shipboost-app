@@ -1,0 +1,6 @@
+name = "Smart Free Shipping Bar"
+type = "theme"
+
+[[blocks]]
+name = "Shipping Bar"
+template = "blocks/shipping_bar.liquid"

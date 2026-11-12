@@ -1,0 +1,33 @@
+{% comment %}
+  ShipBoost - Smart Dynamic Free Shipping Bar
+  Injected automatically into Shopify Online Store 2.0 themes
+{% endcomment %}
+
+<div id="shipboost-bar-wrapper" class="shipboost-hidden" data-shop="{{ shop.permanent_domain }}" data-app-url="{{ app.url | default: 'https://your-deployed-app.onrender.com' }}">
+  <div id="shipboost-bar">
+    <div class="shipboost-content-area">
+      <span id="shipboost-icon" class="shipboost-icon">🚚</span>
+      <span id="shipboost-message" class="shipboost-message">Loading shipping details...</span>
+      <button id="shipboost-close" class="shipboost-close-btn" aria-label="Close" type="button">&times;</button>
+    </div>
+    <div id="shipboost-progress-container" class="shipboost-progress-container">
+      <div id="shipboost-progress-fill" class="shipboost-progress-fill"></div>
+    </div>
+  </div>
+</div>
+
+{{ 'shipping_bar.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'shipping_bar.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Smart Shipping Bar",
+  "target": "body",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Manage goals, colors, and messages from the ShipBoost App Dashboard in your Shopify Admin."
+    }
+  ]
+}
+{% endschema %}

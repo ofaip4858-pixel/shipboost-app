@@ -1,0 +1,15 @@
+{
+  "default": {
+    "isActive": true,
+    "goalAmount": 50,
+    "currencySymbol": "$",
+    "initialMessage": "Free Shipping on orders over {goal}! 🚚",
+    "progressMessage": "Add {remaining} more to unlock FREE SHIPPING! 📦",
+    "successMessage": "🎉 Congratulations! You unlocked FREE SHIPPING!",
+    "backgroundColor": "#111827",
+    "textColor": "#ffffff",
+    "progressColor": "#10b981",
+    "position": "top",
+    "plan": "free"
+  }
+}
